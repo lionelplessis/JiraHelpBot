@@ -26,8 +26,9 @@ At the moment the bot is supported only in **MS Teams**. You can either build an
 ## Techno used
 
 * [.NET Core 2.2](https://github.com/dotnet/core)
+* [ASP.NET Core 2.2](https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-2.2)
 * [Bot framework V4](https://dev.botframework.com/)
-* [ASP.NET Core 2.2](https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-2.1)
+* [Atlassian.Sdk](https://bitbucket.org/farmas/atlassian.net-sdk)
 * [NUnit testing framework v3](https://nunit.org/)
 * [Moq4 mocking framework](https://github.com/Moq/moq4/wiki/Quickstart)
 
