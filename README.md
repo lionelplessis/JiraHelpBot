@@ -4,7 +4,8 @@
 
 The main goal of this bot is to display cards with Jira ticket information in Microsoft Teams whenever a Jira ticket id is written in Team's channel and the bot is mentionned.
 
-![Card example](https://raw.githubusercontent.com/lionelplessis/JiraHelpBot/master/Docs/JiraHelp_card-example.png)
+
+![Card example](https://github.com/lionelplessis/JiraHelpBot/blob/master/Docs/JiraHelp_card-example.png)
 
 ## Credits
 
