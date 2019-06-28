@@ -15,14 +15,7 @@ All credits to [Gianluigi Conti](https://github.com/glconti) for the original id
 
 ### MS Teams
 
-At the moment the bot is supported only in **MS Teams**. You can either build and deploy the bot yourself or you can start using it for free by using the steps below. Consider the free version as a way to try it, it might not run forever.
-
-1. Download the MS Teams install bundle: [JiraHelpMsTeamsInstallBundle.zip](https://github.com/lionelplessis/JiraHelpBot/blob/master/Bundle/JiraHelpMsTeamsInstallBundle.zip "MS Teams installation bundle")
-2. Open MS Teams and on the left locate team where you want the bot to be available and click the three dots menu and select **Manage team**
-3. On the manage teams page select **Apps** tab.
-4. At the bottom you should see a link '**Upload a custom app**'. Click on it and select the bundle you downloaded in first step.
-5. Now you can start using the bot by mentioning it in a channel (**@JiraHelp**).
-
+At the moment the bot is supported only in **MS Teams**.
 ## Techno used
 
 * [.NET Core 2.2](https://github.com/dotnet/core)
