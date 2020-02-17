@@ -1,6 +1,9 @@
 ﻿#region using
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Atlassian.Jira;
@@ -9,6 +12,7 @@ using Microsoft.Bot.Schema;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Moq;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
 #endregion
@@ -90,8 +94,9 @@ namespace JiraHelpBot.Tests
                 summary = "Cool feature summary"
             };
             var issue = new Issue(jiraRestClient, remoteIssue);
+            var resultStub = new PagedQueryResultStub<Issue>(new List<Issue>{issue}, 0, 20, 1);
             var issueServiceMock = new Mock<IIssueService>();
-            issueServiceMock.Setup(s => s.GetIssueAsync(It.IsAny<string>(), CancellationToken.None)).ReturnsAsync(issue);
+            issueServiceMock.Setup(s => s.GetIssuesFromJqlAsync(It.IsAny<IssueSearchOptions>(), CancellationToken.None)).ReturnsAsync(() => resultStub);
 
             return new JiraHelpBot(MockLogger(), issueServiceMock.Object, MockConfiguration());
         }
@@ -99,9 +104,36 @@ namespace JiraHelpBot.Tests
         private static JiraHelpBot MakeJiraHelpBotWithFailingJiraIssueService()
         {
             var issueServiceMock = new Mock<IIssueService>();
-            issueServiceMock.Setup(s => s.GetIssueAsync(It.IsAny<string>(), CancellationToken.None)).Throws(new Exception("Issue not found."));
+            issueServiceMock.Setup(s => s.GetIssuesFromJqlAsync(It.IsAny<IssueSearchOptions>(), CancellationToken.None)).Throws(new Exception("Issue not found."));
 
             return new JiraHelpBot(MockLogger(), issueServiceMock.Object, MockConfiguration());
+        }
+
+        private class PagedQueryResultStub<T> : IPagedQueryResult<T>
+        {
+            private readonly IEnumerable<T> _enumerable;
+
+            public PagedQueryResultStub(IEnumerable<T> enumerable,
+                                        int startAt,
+                                        int itemsPerPage,
+                                        int totalItems)
+            {
+                _enumerable = enumerable;
+                StartAt = startAt;
+                ItemsPerPage = itemsPerPage;
+                TotalItems = totalItems;
+            }
+
+            public int StartAt { get; }
+
+            public int ItemsPerPage { get; }
+
+            public int TotalItems { get; }
+
+            public IEnumerator<T> GetEnumerator() => _enumerable.GetEnumerator();
+
+            IEnumerator IEnumerable.GetEnumerator() => _enumerable.GetEnumerator();
+
         }
     }
 }

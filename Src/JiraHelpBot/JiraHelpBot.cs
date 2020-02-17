@@ -73,7 +73,14 @@ namespace JiraHelpBot
                                        {
                                            try
                                            {
-                                               return GetIssueResult.Success(await _jiraIssueService.GetIssueAsync(t));
+                                               var results = await _jiraIssueService.GetIssuesFromJqlAsync(
+                                                   new IssueSearchOptions($"key = {t}")
+                                                   {
+                                                       AdditionalFields = new List<string>() { "assignee", "status", "issuetype", "summary", "priority" }, FetchBasicFields = false
+                                                   });
+
+                                               //var issue = await _jiraIssueService.GetIssueAsync(t);
+                                               return GetIssueResult.Success(results.First());
                                            }
                                            catch (Exception e)
                                            {
