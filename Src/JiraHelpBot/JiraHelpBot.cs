@@ -19,7 +19,7 @@ namespace JiraHelpBot
     public class JiraHelpBot : IBot
     {
         private const string JiraCardTitle = @"<strong>Type:</strong> {0} &nbsp;<strong>Status:</strong> {1} &nbsp;<strong>Priority:</strong> {2}</br>
-<strong>Assignee:</strong> {3} &nbsp; &nbsp; &nbsp; &nbsp;<a href=""{4}"">Open</a>";
+<strong>Assignee:</strong> {3} &nbsp; <strong>Fix versions:</strong> {4} </br><a href=""{5}"">Open</a>";
 
         private readonly IIssueService _jiraIssueService;
         private readonly ILogger<JiraHelpBot> _logger;
@@ -76,7 +76,7 @@ namespace JiraHelpBot
                                                var results = await _jiraIssueService.GetIssuesFromJqlAsync(
                                                    new IssueSearchOptions($"key = {t}")
                                                    {
-                                                       AdditionalFields = new List<string>() { "assignee", "status", "issuetype", "summary", "priority" }, FetchBasicFields = false
+                                                       AdditionalFields = new List<string>() { "assignee", "status", "issuetype", "summary", "priority", "fixVersion" }, FetchBasicFields = false
                                                    });
 
                                                //var issue = await _jiraIssueService.GetIssueAsync(t);
@@ -112,6 +112,7 @@ namespace JiraHelpBot
                             issue.Status.Name,
                             issue.Priority.Name,
                             issue.Assignee,
+                            string.Join(" ", issue.FixVersions),
                             issueUrl));
 
                     return thumbnailCard.ToAttachment();

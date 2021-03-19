@@ -40,7 +40,7 @@ namespace JiraHelpBot.Tests
             var thumbnailCard = activity.Attachments[0].Content as ThumbnailCard;
             Assert.That(thumbnailCard.Subtitle, Is.EqualTo("SKYE-1234: Cool feature summary"));
             Assert.That(thumbnailCard.Text, Is.EqualTo(@"<strong>Type:</strong> Backlog item &nbsp;<strong>Status:</strong> Review &nbsp;<strong>Priority:</strong> 2 = Major</br>
-<strong>Assignee:</strong> John &nbsp; &nbsp; &nbsp; &nbsp;<a href=""https://acme.atlassian.net/browse/SKYE-1234"">Open</a>"));
+<strong>Assignee:</strong> John &nbsp; <strong>Fix versions:</strong> v1.0.0 </br><a href=""https://acme.atlassian.net/browse/SKYE-1234"">Open</a>"));
         }
 
         [Test]
@@ -91,6 +91,7 @@ namespace JiraHelpBot.Tests
                 status = new RemoteStatus { id = "2", name = "Review" },
                 priority = new RemotePriority { name = "2 = Major" },
                 assignee = "John",
+                fixVersions = new[] { new RemoteVersion {id = "v1.0.0", name = "v1.0.0"}},
                 summary = "Cool feature summary"
             };
             var issue = new Issue(jiraRestClient, remoteIssue);
