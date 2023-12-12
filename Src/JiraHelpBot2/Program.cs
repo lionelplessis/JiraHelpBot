@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace JiraHelpBot2
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
@@ -19,9 +19,6 @@ namespace JiraHelpBot2
         private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureLogging(loggingBuilder => loggingBuilder.AddAzureWebAppDiagnostics())
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }
 }

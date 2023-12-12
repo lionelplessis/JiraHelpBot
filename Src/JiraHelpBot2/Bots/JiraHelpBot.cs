@@ -1,9 +1,4 @@
-﻿#region copyright
-// Copyright 2007 - 2022 Innoveo AG, Zurich/Switzerland
-// All rights reserved. Use is subject to license terms.
-#endregion
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -21,11 +16,11 @@ public class JiraHelpBot : ActivityHandler
 {
     private const string JiraCardTitle = @"<strong>Type:</strong> {0} &nbsp;<strong>Status:</strong> {1} &nbsp;<strong>Priority:</strong> {2}</br>
 <strong>Assignee:</strong> {3} &nbsp; <strong>Fix versions:</strong> {4} </br><a href=""{5}"">Open</a>";
+    private readonly string _jiraAddress;
+    private readonly IJiraClient _jiraClient;
 
     private readonly ILogger<JiraHelpBot> _logger;
-    private readonly IJiraClient _jiraClient;
     private readonly Regex _regex;
-    private readonly string _jiraAddress;
 
     public JiraHelpBot(IConfiguration configuration, ILogger<JiraHelpBot> logger, IJiraClient jiraClient)
     {
@@ -68,7 +63,8 @@ public class JiraHelpBot : ActivityHandler
                                            _logger.LogInformation(e, $"Getting Jira ticket '{ticketId}' failed.");
                                            return GetIssueResult.Failure(e.Message);
                                        }
-                                   }, cancellationToken)
+                                   },
+                                   cancellationToken)
                            }).ToArray();
 
         await Task.WhenAll(searches.Select(t => t.Task));
@@ -144,5 +140,4 @@ public class JiraHelpBot : ActivityHandler
 
         public static GetIssueResult Failure(string errorMessage) => new GetIssueResult(errorMessage);
     }
-
 }

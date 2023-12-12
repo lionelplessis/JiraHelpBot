@@ -1,11 +1,4 @@
-﻿#region copyright
-// Copyright 2007 - 2022 Innoveo AG, Zurich/Switzerland
-// All rights reserved. Use is subject to license terms.
-#endregion
-
-using System;
-
-namespace JiraHelpBot2.JiraClient;
+﻿namespace JiraHelpBot2.JiraClient;
 
 public class Rootobject
 {
@@ -19,9 +12,13 @@ public class Rootobject
 public class Issue
 {
     public string expand { get; set; }
+
     public string id { get; set; }
+
     public string self { get; set; }
+
     public string key { get; set; }
+
     public Fields fields { get; set; }
 }
 
@@ -62,11 +59,13 @@ public class Fields
     //public object customfield_13579 { get; set; }
     //public object customfield_13578 { get; set; }
     public object[] labels { get; set; }
+
     //public Customfield_11820 customfield_11820 { get; set; }
     //public object customfield_13569 { get; set; }
     //public int aggregatetimeoriginalestimate { get; set; }
     //public Issuelink[] issuelinks { get; set; }
     public Assignee assignee { get; set; }
+
     //public Component[] components { get; set; }
     //public object customfield_13560 { get; set; }
     //public string[] customfield_10050 { get; set; }
@@ -109,6 +108,7 @@ public class Fields
     //public Progress progress { get; set; }
     //public Votes votes { get; set; }
     public Issuetype issuetype { get; set; }
+
     //public object customfield_13540 { get; set; }
     //public object customfield_13661 { get; set; }
     //public object customfield_11120 { get; set; }
@@ -171,6 +171,7 @@ public class Fields
     //public object customfield_13639 { get; set; }
     //public object customfield_13518 { get; set; }
     public string summary { get; set; }
+
     //public object customfield_13630 { get; set; }
     //public object customfield_13632 { get; set; }
     //public object customfield_13511 { get; set; }
@@ -200,6 +201,7 @@ public class Fields
     //public DateTime statuscategorychangedate { get; set; }
     //public object customfield_10110 { get; set; }
     public Fixversion[] fixVersions { get; set; }
+
     //public object customfield_13500 { get; set; }
     //public object customfield_11321 { get; set; }
     //public object customfield_13621 { get; set; }
@@ -220,6 +222,7 @@ public class Fields
     //public object customfield_10220 { get; set; }
     //public object customfield_13610 { get; set; }
     public Priority priority { get; set; }
+
     //public object customfield_10100 { get; set; }
     //public object customfield_13612 { get; set; }
     //public object customfield_13611 { get; set; }
@@ -278,254 +281,364 @@ public class Fields
 public class Resolution
 {
     public string self { get; set; }
+
     public string id { get; set; }
+
     public string description { get; set; }
+
     public string name { get; set; }
 }
 
 public class Customfield_11820
 {
     public bool hasEpicLinkFieldDependency { get; set; }
+
     public bool showField { get; set; }
+
     public Noneditablereason nonEditableReason { get; set; }
 }
 
 public class Noneditablereason
 {
     public string reason { get; set; }
+
     public string message { get; set; }
 }
 
 public class Assignee
 {
     public string self { get; set; }
+
     public string accountId { get; set; }
+
     public Avatarurls avatarUrls { get; set; }
+
     public string displayName { get; set; }
+
     public bool active { get; set; }
+
     public string timeZone { get; set; }
+
     public string accountType { get; set; }
 }
 
 public class Avatarurls
 {
     public string _48x48 { get; set; }
+
     public string _24x24 { get; set; }
+
     public string _16x16 { get; set; }
+
     public string _32x32 { get; set; }
 }
 
 public class Reporter
 {
     public string self { get; set; }
+
     public string accountId { get; set; }
+
     public Avatarurls1 avatarUrls { get; set; }
+
     public string displayName { get; set; }
+
     public bool active { get; set; }
+
     public string timeZone { get; set; }
+
     public string accountType { get; set; }
 }
 
 public class Avatarurls1
 {
     public string _48x48 { get; set; }
+
     public string _24x24 { get; set; }
+
     public string _16x16 { get; set; }
+
     public string _32x32 { get; set; }
 }
 
 public class Progress
 {
     public int progress { get; set; }
+
     public int total { get; set; }
+
     public int percent { get; set; }
 }
 
 public class Votes
 {
     public string self { get; set; }
+
     public int votes { get; set; }
+
     public bool hasVoted { get; set; }
 }
 
 public class Issuetype
 {
     public string self { get; set; }
+
     public string id { get; set; }
+
     public string description { get; set; }
+
     public string iconUrl { get; set; }
+
     public string name { get; set; }
+
     public bool subtask { get; set; }
+
     public int avatarId { get; set; }
+
     public int hierarchyLevel { get; set; }
 }
 
 public class Project
 {
     public string self { get; set; }
+
     public string id { get; set; }
+
     public string key { get; set; }
+
     public string name { get; set; }
+
     public string projectTypeKey { get; set; }
+
     public bool simplified { get; set; }
+
     public Avatarurls2 avatarUrls { get; set; }
 }
 
 public class Avatarurls2
 {
     public string _48x48 { get; set; }
+
     public string _24x24 { get; set; }
+
     public string _16x16 { get; set; }
+
     public string _32x32 { get; set; }
 }
 
 public class Watches
 {
     public string self { get; set; }
+
     public int watchCount { get; set; }
+
     public bool isWatching { get; set; }
 }
 
 public class Priority
 {
     public string self { get; set; }
+
     public string iconUrl { get; set; }
+
     public string name { get; set; }
+
     public string id { get; set; }
 }
 
 public class Status
 {
     public string self { get; set; }
+
     public string description { get; set; }
+
     public string iconUrl { get; set; }
+
     public string name { get; set; }
+
     public string id { get; set; }
+
     public Statuscategory statusCategory { get; set; }
 }
 
 public class Statuscategory
 {
     public string self { get; set; }
+
     public int id { get; set; }
+
     public string key { get; set; }
+
     public string colorName { get; set; }
+
     public string name { get; set; }
 }
 
 public class Creator
 {
     public string self { get; set; }
+
     public string accountId { get; set; }
+
     public Avatarurls3 avatarUrls { get; set; }
+
     public string displayName { get; set; }
+
     public bool active { get; set; }
+
     public string timeZone { get; set; }
+
     public string accountType { get; set; }
 }
 
 public class Avatarurls3
 {
     public string _48x48 { get; set; }
+
     public string _24x24 { get; set; }
+
     public string _16x16 { get; set; }
+
     public string _32x32 { get; set; }
 }
 
 public class Aggregateprogress
 {
     public int progress { get; set; }
+
     public int total { get; set; }
+
     public int percent { get; set; }
 }
 
 public class Issuelink
 {
     public string id { get; set; }
+
     public string self { get; set; }
+
     public Type type { get; set; }
+
     public Outwardissue outwardIssue { get; set; }
 }
 
 public class Type
 {
     public string id { get; set; }
+
     public string name { get; set; }
+
     public string inward { get; set; }
+
     public string outward { get; set; }
+
     public string self { get; set; }
 }
 
 public class Outwardissue
 {
     public string id { get; set; }
+
     public string key { get; set; }
+
     public string self { get; set; }
+
     public Fields1 fields { get; set; }
 }
 
 public class Fields1
 {
     public string summary { get; set; }
+
     public Status1 status { get; set; }
+
     public Priority1 priority { get; set; }
+
     public Issuetype1 issuetype { get; set; }
 }
 
 public class Status1
 {
     public string self { get; set; }
+
     public string description { get; set; }
+
     public string iconUrl { get; set; }
+
     public string name { get; set; }
+
     public string id { get; set; }
+
     public Statuscategory1 statusCategory { get; set; }
 }
 
 public class Statuscategory1
 {
     public string self { get; set; }
+
     public int id { get; set; }
+
     public string key { get; set; }
+
     public string colorName { get; set; }
+
     public string name { get; set; }
 }
 
 public class Priority1
 {
     public string self { get; set; }
+
     public string iconUrl { get; set; }
+
     public string name { get; set; }
+
     public string id { get; set; }
 }
 
 public class Issuetype1
 {
     public string self { get; set; }
+
     public string id { get; set; }
+
     public string description { get; set; }
+
     public string iconUrl { get; set; }
+
     public string name { get; set; }
+
     public bool subtask { get; set; }
+
     public int avatarId { get; set; }
+
     public int hierarchyLevel { get; set; }
 }
 
 public class Component
 {
     public string self { get; set; }
+
     public string id { get; set; }
+
     public string name { get; set; }
+
     public string description { get; set; }
 }
 
 public class Fixversion
 {
     public string self { get; set; }
+
     public string id { get; set; }
+
     public string description { get; set; }
+
     public string name { get; set; }
+
     public bool archived { get; set; }
+
     public bool released { get; set; }
+
     public string releaseDate { get; set; }
 }
