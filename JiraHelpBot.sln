@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraHelpBot", "Src\JiraHelp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraHelpBot.Tests", "Tests\JiraHelpBotTests\JiraHelpBot.Tests.csproj", "{FB550777-5626-4956-9688-326E2E212F7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiraHelpBot2", "Src\JiraHelpBot2\JiraHelpBot2.csproj", "{E5A3B303-CEB4-480D-B1AD-7277805C0451}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraHelpBot2", "Src\JiraHelpBot2\JiraHelpBot2.csproj", "{E5A3B303-CEB4-480D-B1AD-7277805C0451}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiraHelpBot2.Tests", "Tests\JiraHelpBot2.Tests\JiraHelpBot2.Tests.csproj", "{F66934DC-39B5-436C-B9AB-1E5F9F79AFD7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,10 @@ Global
 		{E5A3B303-CEB4-480D-B1AD-7277805C0451}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5A3B303-CEB4-480D-B1AD-7277805C0451}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5A3B303-CEB4-480D-B1AD-7277805C0451}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F66934DC-39B5-436C-B9AB-1E5F9F79AFD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F66934DC-39B5-436C-B9AB-1E5F9F79AFD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F66934DC-39B5-436C-B9AB-1E5F9F79AFD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F66934DC-39B5-436C-B9AB-1E5F9F79AFD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +45,7 @@ Global
 		{16F22AC4-982A-43EB-8514-4F1BC4825560} = {40AF5E3B-EFB8-4D45-BAA6-DE3907DD6D95}
 		{FB550777-5626-4956-9688-326E2E212F7B} = {9832A85F-E943-4545-B983-A42C46A3CBFD}
 		{E5A3B303-CEB4-480D-B1AD-7277805C0451} = {40AF5E3B-EFB8-4D45-BAA6-DE3907DD6D95}
+		{F66934DC-39B5-436C-B9AB-1E5F9F79AFD7} = {9832A85F-E943-4545-B983-A42C46A3CBFD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {26EBC9AF-C11B-4AD5-8F09-B1B5E04846DD}
