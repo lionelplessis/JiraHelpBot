@@ -1,0 +1,4 @@
+// @name=JiraJqlSearchByKey
+GET {{jiraAddress}}/rest/api/2/search?jql=key={{jiraTicketKey}}
+Accept: application/json
+Authorization: Basic {{jiraUserName}} {{jiraApiToken}}
