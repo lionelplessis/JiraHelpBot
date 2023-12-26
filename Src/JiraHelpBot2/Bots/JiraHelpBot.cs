@@ -14,8 +14,10 @@ namespace JiraHelpBot2.Bots;
 
 public class JiraHelpBot : ActivityHandler
 {
-    private const string JiraCardTitle = @"<strong>Type:</strong> {0} &nbsp;<strong>Status:</strong> {1} &nbsp;<strong>Priority:</strong> {2}</br>
-<strong>Assignee:</strong> {3} &nbsp; <strong>Fix versions:</strong> {4} </br><a href=""{5}"">Open</a>";
+    private const string JiraCardBodyTemplate = """
+                                                <strong>Type:</strong> {0} &nbsp;<strong>Status:</strong> {1} &nbsp;<strong>Priority:</strong> {2}</br>
+                                                <strong>Assignee:</strong> {3} &nbsp; <strong>Fix versions:</strong> {4} </br><a href="{5}">Open</a>
+                                                """;
     private readonly string _jiraAddress;
     private readonly IJiraClient _jiraClient;
 
@@ -35,9 +37,6 @@ public class JiraHelpBot : ActivityHandler
 
     protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
     {
-        //var replyText = $"Echo: {turnContext.Activity.Text}";
-        //await turnContext.SendActivityAsync(MessageFactory.Text(replyText, replyText), cancellationToken);
-
         _logger.LogTrace("Handling message: {Message}", turnContext.Activity.Text);
 
         var ticketIds = ExtractTicketIds(turnContext.Activity.Text).Distinct().ToList();
@@ -78,31 +77,22 @@ public class JiraHelpBot : ActivityHandler
                     return new ThumbnailCard(subtitle: search.Ticket, text: getIssueResult.ErrorMessage).ToAttachment();
 
                 var issue = getIssueResult.Issue;
-                var issueNumber = issue.key.ToString();
+                var issueNumber = issue.key;
                 var issueUrl = _jiraAddress + "/browse/" + issueNumber;
 
                 var thumbnailCard = new ThumbnailCard(
                     subtitle: issueNumber + ": " + issue.fields.summary,
                     text: string.Format(
-                        JiraCardTitle,
+                        JiraCardBodyTemplate,
                         issue.fields.issuetype?.name,
                         issue.fields.status?.name,
                         issue.fields.priority?.name,
                         issue.fields.assignee?.displayName,
-                        string.Join(" ", (issue.fields.fixVersions?.Select(fv => fv.name)) ?? Enumerable.Empty<string>()),
+                        string.Join(" ", issue.fields.fixVersions?.Select(fv => fv.name) ?? Enumerable.Empty<string>()),
                         issueUrl));
 
                 return thumbnailCard.ToAttachment();
             });
-
-        //var reply = turnContext.Activity.CreateReply();
-
-        //reply.AttachmentLayout = AttachmentLayoutTypes.List;
-        //reply.Attachments = thumbnailCards.ToList();
-
-        ////reply.ChannelData = JObject.FromObject(new TeamsChannelData(notification: new NotificationInfo(false)));
-
-        //_logger.LogTrace("Sending response attachment(s) count: {AttachmentsCount}", reply.Attachments.Count);
 
         await turnContext.SendActivityAsync(MessageFactory.Attachment(thumbnailCards), cancellationToken);
     }
@@ -112,8 +102,8 @@ public class JiraHelpBot : ActivityHandler
         var matchCollection = _regex.Matches(message);
         if (matchCollection.Count == 0) yield break;
 
-        foreach (Match o in matchCollection)
-            yield return o.Groups["ticket"].Value;
+        foreach (Match m in matchCollection)
+            yield return m.Groups["ticket"].Value;
     }
 
     private class GetIssueResult
@@ -136,8 +126,8 @@ public class JiraHelpBot : ActivityHandler
 
         public Issue Issue { get; }
 
-        public static GetIssueResult Success(Issue issue) => new GetIssueResult(issue);
+        public static GetIssueResult Success(Issue issue) => new(issue);
 
-        public static GetIssueResult Failure(string errorMessage) => new GetIssueResult(errorMessage);
+        public static GetIssueResult Failure(string errorMessage) => new(errorMessage);
     }
 }
