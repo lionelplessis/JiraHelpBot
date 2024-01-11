@@ -20,7 +20,7 @@ using NUnit.Framework;
 namespace JiraHelpBot.Tests
 {
     [TestFixture]
-    public class ReviewBotTests
+    public class JiraHelpBotTests
     {
         [Test]
         public async Task OnTurnAsync_SimpleMentionWithOneTicketIdThatExistsInJira_ExpectCardWithTicketDetails()

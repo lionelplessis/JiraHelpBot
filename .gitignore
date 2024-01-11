@@ -266,6 +266,8 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+# Config file for Rider http request file (*.http)
+*.private.env.json
 
 # CodeRush
 .cr/

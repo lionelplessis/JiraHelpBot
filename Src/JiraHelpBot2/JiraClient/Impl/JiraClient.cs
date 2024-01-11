@@ -1,9 +1,4 @@
-﻿#region copyright
-// Copyright 2007 - 2022 Innoveo AG, Zurich/Switzerland
-// All rights reserved. Use is subject to license terms.
-#endregion
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -17,11 +12,11 @@ namespace JiraHelpBot2.JiraClient.Impl;
 
 public class JiraClient : IJiraClient
 {
-    private readonly ILogger<JiraClient> _logger;
     private readonly HttpClient _httpClient;
-    private readonly string _jiraUserName;
-    private readonly string _jiraApiToken;
     private readonly string _jiraAddress;
+    private readonly string _jiraApiToken;
+    private readonly string _jiraUserName;
+    private readonly ILogger<JiraClient> _logger;
 
     public JiraClient(ILogger<JiraClient> logger, IHttpClientFactory httpClientFactory, IConfiguration configuration)
     {
@@ -29,7 +24,7 @@ public class JiraClient : IJiraClient
         _httpClient = httpClientFactory.CreateClient();
 
         _jiraUserName = configuration.GetSection("JiraHelpJiraAccountId")?.Value;
-        _jiraApiToken = configuration.GetSection("jiraHelpJiraAccountPassword")?.Value;
+        _jiraApiToken = configuration.GetSection("JiraHelpJiraAccountPassword")?.Value;
         _jiraAddress = configuration.GetSection("JiraHelpJiraEndpoint")?.Value;
     }
 
@@ -43,15 +38,15 @@ public class JiraClient : IJiraClient
         if (tickets is { Count: 1 }) return tickets.Single();
 
         return null;
-
     }
 
     private async Task<List<Issue>> GetTicketsByQuery(string query)
     {
-        using var request = new HttpRequestMessage(new HttpMethod("GET"),
-                                                   $"{_jiraAddress}/rest/api/2/search?jql={query}");
+        using var request = new HttpRequestMessage(
+            new HttpMethod("GET"),
+            $"{_jiraAddress}/rest/api/2/search?jql={query}");
 
-        var base64Authorization = Convert.ToBase64String( Encoding.ASCII.GetBytes( $"{_jiraUserName}:{_jiraApiToken}"));
+        var base64Authorization = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{_jiraUserName}:{_jiraApiToken}"));
         request.Headers.TryAddWithoutValidation("Authorization", $"Basic {base64Authorization}");
 
         _logger.LogTrace("JiraClient getting tickets by JQL: '{Query}'", query);
