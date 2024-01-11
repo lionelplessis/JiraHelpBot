@@ -17,7 +17,7 @@ public class JiraHelpBot : ActivityHandler
 {
     private const string JiraCardBodyTemplate = """
                                                 <strong>Type:</strong> {0} &nbsp;<strong>Status:</strong> {1} &nbsp;<strong>Priority:</strong> {2}</br>
-                                                <strong>Assignee:</strong> {3} &nbsp; <strong>Fix versions:</strong> {4} </br><a href="{5}">Open</a>
+                                                <strong>Assignee:</strong> {3} &nbsp; <strong>Fix versions:</strong> {4} </br>
                                                 """;
     private readonly string _jiraAddress;
     private readonly IJiraClient _jiraClient;
@@ -82,15 +82,14 @@ public class JiraHelpBot : ActivityHandler
                 var issueUrl = _jiraAddress + "/browse/" + issueNumber;
 
                 var thumbnailCard = new ThumbnailCard(
-                    subtitle: HttpUtility.HtmlEncode(issueNumber + ": " + issue.fields.summary),
+                    subtitle: $"<a href=\"{issueUrl}\">{issueNumber}</a>: {HttpUtility.HtmlEncode(issue.fields.summary)}",
                     text: string.Format(
                         JiraCardBodyTemplate,
                         issue.fields.issuetype?.name,
                         issue.fields.status?.name,
                         issue.fields.priority?.name,
                         HttpUtility.HtmlEncode(issue.fields.assignee?.displayName),
-                        string.Join(" ", issue.fields.fixVersions?.Select(fv => fv.name) ?? Enumerable.Empty<string>()),
-                        issueUrl));
+                        string.Join(" ", issue.fields.fixVersions?.Select(fv => fv.name) ?? Enumerable.Empty<string>())));
 
                 return thumbnailCard.ToAttachment();
             });

@@ -27,11 +27,13 @@ namespace JiraHelpBot2.Tests
             Assert.Single(activity.Attachments);
             Assert.IsType<ThumbnailCard>(activity.Attachments[0].Content);
             var thumbnailCard = (ThumbnailCard)activity.Attachments[0].Content;
-            Assert.Equal("SKYE-1234: Cool feature summary", thumbnailCard.Subtitle);
+            Assert.Equal("<a href=\"https://acme.atlassian.net/browse/SKYE-1234\">SKYE-1234</a>: Cool feature summary", thumbnailCard.Subtitle);
             Assert.Equal(
                 // language=html
-                @"<strong>Type:</strong> Backlog item &nbsp;<strong>Status:</strong> Review &nbsp;<strong>Priority:</strong> 2 = Major</br>
-<strong>Assignee:</strong> John &nbsp; <strong>Fix versions:</strong> v1.1.0 v2.0.0 </br><a href=""https://acme.atlassian.net/browse/SKYE-1234"">Open</a>",
+                """
+                <strong>Type:</strong> Backlog item &nbsp;<strong>Status:</strong> Review &nbsp;<strong>Priority:</strong> 2 = Major</br>
+                <strong>Assignee:</strong> John &nbsp; <strong>Fix versions:</strong> v1.1.0 v2.0.0 </br>
+                """,
                 thumbnailCard.Text);
         }
 
@@ -73,11 +75,13 @@ namespace JiraHelpBot2.Tests
             Assert.Single(activity.Attachments);
             Assert.IsType<ThumbnailCard>(activity.Attachments[0].Content);
             var thumbnailCard = (ThumbnailCard)activity.Attachments[0].Content;
-            Assert.Equal("SKYE-1234: Feature with characters to &lt; HTML &gt; encode!", thumbnailCard.Subtitle);
+            Assert.Equal("<a href=\"https://acme.atlassian.net/browse/SKYE-1234\">SKYE-1234</a>: Feature with characters to &lt; HTML &gt; encode!", thumbnailCard.Subtitle);
             Assert.Equal(
                 // language=html
-                @"<strong>Type:</strong> Backlog item &nbsp;<strong>Status:</strong> Review &nbsp;<strong>Priority:</strong> 2 = Major</br>
-<strong>Assignee:</strong> &amp;lvis &nbsp; <strong>Fix versions:</strong> v1.1.0 v2.0.0 </br><a href=""https://acme.atlassian.net/browse/SKYE-1234"">Open</a>",
+                """
+                <strong>Type:</strong> Backlog item &nbsp;<strong>Status:</strong> Review &nbsp;<strong>Priority:</strong> 2 = Major</br>
+                <strong>Assignee:</strong> &amp;lvis &nbsp; <strong>Fix versions:</strong> v1.1.0 v2.0.0 </br>
+                """,
                 thumbnailCard.Text);
         }
 
