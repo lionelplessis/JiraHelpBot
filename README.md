@@ -18,11 +18,10 @@ All credits to [Gianluigi Conti](https://github.com/glconti) for the original id
 At the moment the bot is supported only in **MS Teams**.
 ## Techno used
 
-* [.NET Core 2.2](https://github.com/dotnet/core)
-* [ASP.NET Core 2.2](https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-2.2)
-* [Bot framework V4](https://dev.botframework.com/)
-* [Atlassian.Sdk](https://bitbucket.org/farmas/atlassian.net-sdk)
-* [NUnit testing framework v3](https://nunit.org/)
-* [Moq4 mocking framework](https://github.com/Moq/moq4/wiki/Quickstart)
+* [.NET 8.0](https://github.com/dotnet/core)
+* [ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/)
+* [Bot framework v4.21](https://github.com/Microsoft/botbuilder-dotnet)
+* [xUnit testing framework](https://github.com/xunit/xunit)
+* [Moq mocking framework](https://github.com/devlooped/moq)
 
-* The bot is hosted in [Azure App Service](https://azure.microsoft.com/en-us/services/app-service/)
+* The bot is hosted on [Azure App Service](https://azure.microsoft.com/en-us/services/app-service/)
