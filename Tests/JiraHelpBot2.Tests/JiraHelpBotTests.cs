@@ -16,7 +16,7 @@ namespace JiraHelpBot2.Tests
         public async Task OnTurnAsync_SimpleMentionWithOneTicketIdThatExistsInJira_ExpectCardWithTicketDetails()
         {
             //Arrange
-            var reviewBot = MakeJiraHelpBot();
+            var (reviewBot, _) = MakeJiraHelpBot();
             var messageTurnContext = MSTeamsTurnContext.CreateUserToBotMessage("@JiraHelp SKYE-1234");
 
             //Act
@@ -55,6 +55,32 @@ namespace JiraHelpBot2.Tests
             Assert.Equal("Issue not found.", thumbnailCard.Text);
         }
 
+        [Fact]
+        public async Task OnTurnAsync_TicketSummaryAndAssigneeReturnedByJiraContainsCharactersThatNeedHtmlEscaping_ExpectCardWithHtmlEncodedCharacters()
+        {
+            //Arrange
+            var (reviewBot, jiraIssue) = MakeJiraHelpBot();
+            var messageTurnContext = MSTeamsTurnContext.CreateUserToBotMessage("@JiraHelp SKYE-1234");
+
+            jiraIssue.fields.summary = "Feature with characters to < HTML > encode!";
+            jiraIssue.fields.assignee.displayName = "&lvis";
+
+            //Act
+            await reviewBot.OnTurnAsync(messageTurnContext);
+
+            //Assert
+            var activity = messageTurnContext.Responses.Peek();
+            Assert.Single(activity.Attachments);
+            Assert.IsType<ThumbnailCard>(activity.Attachments[0].Content);
+            var thumbnailCard = (ThumbnailCard)activity.Attachments[0].Content;
+            Assert.Equal("SKYE-1234: Feature with characters to &lt; HTML &gt; encode!", thumbnailCard.Subtitle);
+            Assert.Equal(
+                // language=html
+                @"<strong>Type:</strong> Backlog item &nbsp;<strong>Status:</strong> Review &nbsp;<strong>Priority:</strong> 2 = Major</br>
+<strong>Assignee:</strong> &amp;lvis &nbsp; <strong>Fix versions:</strong> v1.1.0 v2.0.0 </br><a href=""https://acme.atlassian.net/browse/SKYE-1234"">Open</a>",
+                thumbnailCard.Text);
+        }
+
         private static ILogger<JiraHelpBot> MockLogger()
         {
             return new LoggerFactory().CreateLogger<JiraHelpBot>();
@@ -74,7 +100,7 @@ namespace JiraHelpBot2.Tests
             return configMock.Object;
         }
 
-        private static JiraHelpBot MakeJiraHelpBot()
+        private static (JiraHelpBot, Issue) MakeJiraHelpBot()
         {
             var jiraClientMock = new Mock<IJiraClient>();
             var issue = new Issue
@@ -93,7 +119,9 @@ namespace JiraHelpBot2.Tests
             };
             jiraClientMock.Setup(c => c.GetTicket(It.Is<string>(s => s == "SKYE-1234"))).ReturnsAsync(() => issue);
 
-            return new JiraHelpBot(MockConfiguration(), MockLogger(), jiraClientMock.Object);
+            var jiraHelpBot = new JiraHelpBot(MockConfiguration(), MockLogger(), jiraClientMock.Object);
+
+            return (jiraHelpBot, issue);
         }
 
         private static JiraHelpBot MakeJiraHelpBotWithFailingJiraIssueService()

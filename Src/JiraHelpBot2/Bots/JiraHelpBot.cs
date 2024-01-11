@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using JiraHelpBot2.JiraClient;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Schema;
@@ -81,13 +82,13 @@ public class JiraHelpBot : ActivityHandler
                 var issueUrl = _jiraAddress + "/browse/" + issueNumber;
 
                 var thumbnailCard = new ThumbnailCard(
-                    subtitle: issueNumber + ": " + issue.fields.summary,
+                    subtitle: HttpUtility.HtmlEncode(issueNumber + ": " + issue.fields.summary),
                     text: string.Format(
                         JiraCardBodyTemplate,
                         issue.fields.issuetype?.name,
                         issue.fields.status?.name,
                         issue.fields.priority?.name,
-                        issue.fields.assignee?.displayName,
+                        HttpUtility.HtmlEncode(issue.fields.assignee?.displayName),
                         string.Join(" ", issue.fields.fixVersions?.Select(fv => fv.name) ?? Enumerable.Empty<string>()),
                         issueUrl));
 
