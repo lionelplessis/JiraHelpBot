@@ -24,7 +24,7 @@ public class JiraClient : IJiraClient
         _httpClient = httpClientFactory.CreateClient();
 
         _jiraUserName = configuration.GetSection("JiraHelpJiraAccountId")?.Value;
-        _jiraApiToken = configuration.GetSection("jiraHelpJiraAccountPassword")?.Value;
+        _jiraApiToken = configuration.GetSection("JiraHelpJiraAccountPassword")?.Value;
         _jiraAddress = configuration.GetSection("JiraHelpJiraEndpoint")?.Value;
     }
 
