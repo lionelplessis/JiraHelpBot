@@ -33,6 +33,7 @@ namespace JiraHelpBot2.Tests
                 """
                 <strong>Type:</strong> Backlog item &nbsp;<strong>Status:</strong> Review &nbsp;<strong>Priority:</strong> 2 = Major</br>
                 <strong>Assignee:</strong> John &nbsp; <strong>Fix versions:</strong> v1.1.0 v2.0.0 </br>
+                <strong>TR project:</strong> SKYE-Product &nbsp; <strong>TR task:</strong> IMPR </br>
                 """,
                 thumbnailCard.Text);
         }
@@ -81,6 +82,7 @@ namespace JiraHelpBot2.Tests
                 """
                 <strong>Type:</strong> Backlog item &nbsp;<strong>Status:</strong> Review &nbsp;<strong>Priority:</strong> 2 = Major</br>
                 <strong>Assignee:</strong> &amp;lvis &nbsp; <strong>Fix versions:</strong> v1.1.0 v2.0.0 </br>
+                <strong>TR project:</strong> SKYE-Product &nbsp; <strong>TR task:</strong> IMPR </br>
                 """,
                 thumbnailCard.Text);
         }
@@ -118,7 +120,9 @@ namespace JiraHelpBot2.Tests
                     status = new Status { id = "2", name = "Review" },
                     priority = new Priority { name = "2 = Major" },
                     assignee = new Assignee { displayName = "John" },
-                    fixVersions = new[] { new Fixversion { name = "v1.1.0" }, new Fixversion { name = "v2.0.0" } }
+                    fixVersions = [new Fixversion { name = "v1.1.0" }, new Fixversion { name = "v2.0.0" }],
+                    customfield_13650 = ["SKYE-Product"],
+                    customfield_13651 = ["IMPR"]
                 }
             };
             jiraClientMock.Setup(c => c.GetTicket(It.Is<string>(s => s == "SKYE-1234"))).ReturnsAsync(() => issue);
