@@ -31,9 +31,9 @@ namespace JiraHelpBot2.Tests
             Assert.Equal(
                 // language=html
                 """
-                <strong>Type:</strong> Backlog item &nbsp;<strong>Status:</strong> Review &nbsp;<strong>Priority:</strong> 2 = Major</br>
-                <strong>Assignee:</strong> John &nbsp; <strong>Fix versions:</strong> v1.1.0 v2.0.0 </br>
-                <strong>TR project:</strong> SKYE-Product &nbsp; <strong>TR task:</strong> IMPR </br>
+                Type: <strong>Backlog item</strong> &nbsp;Status: <strong>Review</strong> &nbsp;Priority: <strong>2 = Major</strong></br>
+                Assignee: <strong>John</strong> &nbsp; Fix versions: <strong>v1.1.0 v2.0.0</strong></br>
+                TR project: <strong>SKYE-Product</strong> &nbsp; TR task: <strong>IMPR</strong></br>
                 """,
                 thumbnailCard.Text);
         }
@@ -80,9 +80,9 @@ namespace JiraHelpBot2.Tests
             Assert.Equal(
                 // language=html
                 """
-                <strong>Type:</strong> Backlog item &nbsp;<strong>Status:</strong> Review &nbsp;<strong>Priority:</strong> 2 = Major</br>
-                <strong>Assignee:</strong> &amp;lvis &nbsp; <strong>Fix versions:</strong> v1.1.0 v2.0.0 </br>
-                <strong>TR project:</strong> SKYE-Product &nbsp; <strong>TR task:</strong> IMPR </br>
+                Type: <strong>Backlog item</strong> &nbsp;Status: <strong>Review</strong> &nbsp;Priority: <strong>2 = Major</strong></br>
+                Assignee: <strong>&amp;lvis</strong> &nbsp; Fix versions: <strong>v1.1.0 v2.0.0</strong></br>
+                TR project: <strong>SKYE-Product</strong> &nbsp; TR task: <strong>IMPR</strong></br>
                 """,
                 thumbnailCard.Text);
         }

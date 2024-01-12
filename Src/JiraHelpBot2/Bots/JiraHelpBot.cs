@@ -15,10 +15,11 @@ namespace JiraHelpBot2.Bots;
 
 public class JiraHelpBot : ActivityHandler
 {
+    // language=html
     private const string JiraCardBodyTemplate = """
-                                                <strong>Type:</strong> {0} &nbsp;<strong>Status:</strong> {1} &nbsp;<strong>Priority:</strong> {2}</br>
-                                                <strong>Assignee:</strong> {3} &nbsp; <strong>Fix versions:</strong> {4} </br>
-                                                <strong>TR project:</strong> {5} &nbsp; <strong>TR task:</strong> {6} </br>
+                                                Type: <strong>{0}</strong> &nbsp;Status: <strong>{1}</strong> &nbsp;Priority: <strong>{2}</strong></br>
+                                                Assignee: <strong>{3}</strong> &nbsp; Fix versions: <strong>{4}</strong></br>
+                                                TR project: <strong>{5}</strong> &nbsp; TR task: <strong>{6}</strong></br>
                                                 """;
     private readonly string _jiraAddress;
     private readonly IJiraClient _jiraClient;
