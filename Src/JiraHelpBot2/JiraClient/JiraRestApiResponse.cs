@@ -129,11 +129,17 @@ public class Fields
     //public object customfield_13538 { get; set; }
     //public DateTime resolutiondate { get; set; }
     //public Watches watches { get; set; }
-    //public object customfield_13650 { get; set; }
+    /// <summary>
+    ///     ClickTime project
+    /// </summary>
+    public string[] customfield_13650 { get; set; }
     //public object customfield_13531 { get; set; }
     //public object customfield_13652 { get; set; }
     //public object customfield_12200 { get; set; }
-    //public object customfield_13651 { get; set; }
+    /// <summary>
+    ///     ClickTime TaskCode
+    /// </summary>
+    public string[] customfield_13651 { get; set; }
     //public object customfield_13530 { get; set; }
     //public object customfield_13654 { get; set; }
     //public object customfield_13653 { get; set; }
@@ -236,6 +242,10 @@ public class Fields
     //public object customfield_13609 { get; set; }
     //public object customfield_13608 { get; set; }
     public Status status { get; set; }
+
+    public string GetClickTimeProject() => customfield_13650 is not null ? customfield_13650[0] : string.Empty;
+
+    public string GetClickTimeTaskCode() => customfield_13651 is not null ? customfield_13651[0] : string.Empty;
     //public object customfield_13601 { get; set; }
     //public object customfield_13600 { get; set; }
     //public int aggregatetimeestimate { get; set; }
